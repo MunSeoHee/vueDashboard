@@ -11,7 +11,10 @@ import { faLeaf } from '@fortawesome/free-solid-svg-icons'
 import { faInfo } from '@fortawesome/free-solid-svg-icons'
 import { faHome } from '@fortawesome/free-solid-svg-icons'
 import { FontAwesomeIcon } from '@fortawesome/vue-fontawesome'
+import ElementUI from 'element-ui';
+import 'element-ui/lib/theme-chalk/index.css';
 
+Vue.use(ElementUI);
 Vue.use(BootstrapVue)
 library.add(faLeaf)
 library.add(faInfo)
@@ -20,7 +23,7 @@ library.add(faUser)
 Vue.component('font-awesome-icon', FontAwesomeIcon)
 Vue.config.productionTip = false
 
-new Vue({
+new Vue({ 
   router,
   store,
   render: h => h(App)

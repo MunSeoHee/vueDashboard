@@ -1,14 +1,19 @@
 <template>
-<div class="row">
-    <div class="col-lg-2">
+<el-row>
+    <el-col :span="3" class="be-left-sidebar mr-0 pr-0">
         <side-nav :columns="this.list"></side-nav>
-    </div>
-    <div class="col-lg-10 bg-light">
-        <p>dashboard layout</p>
-        <router-view></router-view>
-    </div>
-</div>
+    </el-col>
+    <el-col :span="21" class=" bg-light container-fluid ml-0 mr-0">
+        <router-view class="mt-3"></router-view>
+    </el-col>
+</el-row>
 </template>
+<style>
+.row > div{
+    width: 150%
+}
+</style>
+
 <script>
 import SideNav from './SideNav';
 export default {

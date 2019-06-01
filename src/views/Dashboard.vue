@@ -1,64 +1,105 @@
 <template>
-<div>
-    <h1>dashboard</h1>
-    <div class="row ">
-      <div class="col-lg-8 card">
-        <div class="nav justify-content-end card-header-tabs btn-group-toggle btn-sm mb-2"
-            data-toggle="buttons">
-            <label v-for="(option, index) in bigLineChartCategories"
+<div class="dashboard">
+    <div class="row d-flex justify-content-center mb-4">
+      <div class="col-12 col-lg-7 card mr-4">
+        <div class=" bg-white pb-0">
+          <div class="row">
+          <p class="col-sm pt-3 ml-2">LIFE LOG 추이</p>
+            <el-menu class="col-sm nav justify-content-end card-header-tabs mb-3">
+            <div v-for="(option, index) in bigLineChartCategories"
+                    :default-active="bigLineChart.activeIndex" class="el-menu-demo el-menu--horizontal" mode="horizontal"
                     :key="option"
-                    class="nav-item btn btn-sm btn-light btn-simple"
                     :class="{active: bigLineChart.activeIndex === index}"
                     :id="index">
-                <input type="radio"
-                    class="nav-link active"
+                <el-menu-item :index="index" 
                     @click="initBigChart(index)"
                     name="options" autocomplete="off"
                     :checked="bigLineChart.activeIndex === index">
                 {{option}}
-            </label>
+                </el-menu-item>
+            </div>
+            </el-menu>
+            <div class="line"></div>
         </div>
+        </div>
+        
         <div class="chart-area">
-        <line-chart style="height: 100%"
-                        ref="bigChart"
-                        chart-id="big-line-chart"
-                        :chart-data="bigLineChart.chartData"
-                        :gradient-colors="bigLineChart.gradientColors"
-                        :gradient-stops="bigLineChart.gradientStops"
-                        :extra-options="bigLineChart.extraOptions">
-        </line-chart>
+          <line-chart     ref="bigChart"
+                          chart-id="big-line-chart"
+                          :chart-data="bigLineChart.chartData"
+                          :gradient-colors="bigLineChart.gradientColors"
+                          :gradient-stops="bigLineChart.gradientStops"
+                          :extra-options="bigLineChart.extraOptions"
+                          style="height:300px">
+          </line-chart>
          </div>
       </div>
-      <div class="col-lg-4 card">
-        <donut-chart></donut-chart>
+      <div class="col-12 col-lg-4 card">
+        <div class=" bg-white pb-0 text-left ">
+          <div class="row">
+          <p class="col-sm pt-3 ml-2">최근 한 달 주요 활동 기록</p>
+          </div>
+        </div>
+        <donut-chart :labels="['수면','걷기','달리기']"
+                     :data="[8, 3, 1]"
+                     style="height: 70%"
+                     class=""></donut-chart>
       </div>
     </div>
-    <div class="row card">
-      <div class="col">
-        <base-table></base-table>
+    
+    <div class="row d-flex justify-content-center mb-4">
+      <div class="col-lg-6 card mr-4">
+        <div class=" bg-white pb-0 text-left ">
+          <div class="row">
+          <p class="col-sm pt-3 ml-2">최근 저장된 건강 정보</p>
+          </div>
+        </div>
+        <base-table :data="this.chart1.data"
+                    :columns="this.chart1.columns"
+                    thead-classes="text-center border-bottom text-muted"
+                    class="text-center table-borderless table mb-3">
+        </base-table>
       </div>
-      <div class="col card">
-        <base-table></base-table>
+      <div class="col-lg-5 card">
+        <div class=" bg-white pb-0 text-left ">
+          <div class="row">
+          <p class="col-sm pt-3 ml-2">최근 진단 및 예측 정보</p>
+          </div>
+        </div>
+        <base-table :data="this.chart2.data"
+                    :columns="this.chart2.columns"
+                    thead-classes="text-center border-bottom text-muted"
+                    class="text-center table-borderless table mb-3"></base-table>
       </div>
     </div>
-    <div class="row card">
-      <div class="nav justify-content-end card-header-tabs btn-group-toggle btn-sm mb-2"
-            data-toggle="buttons">
-            <label v-for="(option, index) in GameLineChartCategories"
+
+    <div class="row d-flex justify-content-center mb-4">
+    <div class=" card container-fluid ml-4 mr-4" style="width:94%">
+      <div class=" bg-white pb-0">
+          <div class="row">
+          <p class="col-sm pt-3 ml-2">게임 별 점수 변화</p>
+          <el-menu class="col-sm nav justify-content-end card-header-tabs mb-3">
+            <div v-for="(option, index) in GameLineChartCategories"
+                    :default-active="GameLineChart.activeIndex" class="el-menu-demo el-menu--horizontal" mode="horizontal"
                     :key="option"
-                    class="nav-item btn btn-sm btn-light btn-simple"
                     :class="{active: GameLineChart.activeIndex === index}"
                     :id="index">
-                <input type="radio"
-                    class="nav-link active"
+                <el-menu-item :index="index" 
                     @click="initGameChart(index)"
                     name="options" autocomplete="off"
                     :checked="GameLineChart.activeIndex === index">
                 {{option}}
-            </label>
+                </el-menu-item>
+            </div>
+            </el-menu>
+            <div class="line"></div>
+          
         </div>
+        </div>
+
+      
         <div class="chart-area container-fluid">
-        <line-chart style="height: 100%" class=""
+        <line-chart style="height: 300px" class=""
                         ref="bigChart"
                         chart-id="big-line-chart"
                         :chart-data="GameLineChart.chartData"
@@ -68,8 +109,16 @@
         </line-chart>
          </div>
     </div>
+    </div>
 </div>
 </template>
+<style>
+.table{
+  font-size: 80%
+}
+
+</style>
+
 <script>
 import LineChart from '../components/Chart/LineChart.js';
 import DonutChart from '../components/Chart/DonutChart.js';
@@ -87,24 +136,42 @@ export default {
     },
     data() {
       return {
+        chart1:{
+          //data Type : LIFE LOG, MED_RECORD, DIAG_PREDICT, TRAINING
+          data:[{'date':'2019.05.01 00:01:00', 'datatype':'LIFE LOG', "tag":'mobileapp'},
+                {'date':'2019.05.01 00:10:00', 'datatype':'DIAG_PREDICT', "tag":'ECG'},
+                {'date':'2019.05.02 00:03:30', 'datatype':'TRAINING', "tag":'game'},
+                {'date':'2019.05.09 00:07:17', 'datatype':'MED_RECORD', "tag":'hospital'},
+                {'date':'2019.05.10 00:10:00', 'datatype':'DIAG_PREDICT', "tag":'ECG'}],
+          columns:['date', 'datatype', 'tag']
+        },
+        chart2:{
+          //date : 진단 및 예측 정보 발생 날짜, datatype : 데이터 타입, content : 예측 및 진단 정보
+          data:[{'date':'2019.05.01 00:01:00', 'datatype':'diagnosis', "content":'cold'},
+                {'date':'2019.05.01 00:10:00', 'datatype':'prediction', "content":'fever'},
+                {'date':'2019.05.02 00:03:30', 'datatype':'diagnosis', "content":'stomachache'},
+                {'date':'2019.05.09 00:07:17', 'datatype':'diagnosis', "content":'toothache'},
+                {'date':'2019.05.10 00:10:00', 'datatype':'prediction', "content":'headache'}],
+          columns:['date', 'datatype', 'content']
+        },
         bigLineChart: {
           allData: [
-            [100, 70, 90, 70, 85, 60, 75, 60, 90, 80, 110, 100],
-            [80, 120, 105, 110, 95, 105, 90, 100, 80, 95, 70, 120],
-            [60, 80, 65, 130, 80, 105, 90, 130, 70, 115, 60, 130]
+            [6, 9, 7, 7, 10, 5],
+            [800, 532, 1023, 1006, 693, 310],
+            [80, 85, 83, 90, 75, 82]
           ],
           activeIndex: 0,
           chartData: null,
           extraOptions: chartConfigs.purpleChartOptions,
           gradientColors: config.colors.primaryGradient,
           gradientStops: [1, 0.4, 0],
-          categories: ['심박수', '수면', '심박']
+          categories: ['수면시간', '활동량', '심박수']
         },
         GameLineChart: {
           allData: [
-            [100, 70, 90, 70, 85, 60, 75, 60, 90, 80, 110, 100],
-            [80, 120, 105, 110, 95, 105, 90, 100, 80, 95, 70, 120],
-            [60, 80, 65, 130, 80, 105, 90, 130, 70, 115, 60, 130]
+            [100, 70, 90, 70, 85, 60],
+            [800, 532, 1023, 1006, 693, 310],
+            [80, 85, 83, 90, 75, 82]
           ],
           activeIndex: 0,
           chartData: null,
@@ -144,7 +211,7 @@ export default {
             pointRadius: 4,
             data: this.bigLineChart.allData[index]
           }],
-          labels: ['JAN', 'FEB', 'MAR', 'APR', 'MAY', 'JUN', 'JUL', 'AUG', 'SEP', 'OCT', 'NOV', 'DEC'],
+          labels: ['1월', '2월', '3월', '4월', '5월', '6월'],
         }
         this.$refs.bigChart.updateGradients(Data);
         this.bigLineChart.chartData = Data;
@@ -167,7 +234,7 @@ export default {
             pointRadius: 4,
             data: this.GameLineChart.allData[index]
           }],
-          labels: ['JAN', 'FEB', 'MAR', 'APR', 'MAY', 'JUN', 'JUL', 'AUG', 'SEP', 'OCT', 'NOV', 'DEC'],
+          labels: ['1월', '2월', '3월', '4월', '5월', '6월'],
         }
         this.$refs.bigChart.updateGradients(Data);
         this.GameLineChart.chartData = Data;

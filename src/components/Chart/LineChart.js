@@ -8,7 +8,7 @@ export default {
     extraOptions: Object,
     gradientColors: {
       type: Array,
-      default: () => ['rgba(72,72,176,0.2)', 'rgba(72,72,176,0.0)', 'rgba(119,52,169,0)'],
+      default: () => ['rgba(255,255,255,0.2)', 'rgba(255,255,255,0.0)', 'rgba(255,255,255,0)'],
       validator: val => {
         return val.length > 2;
       }
@@ -37,6 +37,8 @@ export default {
       gradientStroke.addColorStop(this.gradientStops[2], this.gradientColors[2]);
       chartData.datasets.forEach(set => {
         set.backgroundColor = gradientStroke;
+        set.borderColor = this.extraOptions.tooltips.borderColor
+        set.pointBackgroundColor = this.extraOptions.tooltips.borderColor
       });
     }
   },

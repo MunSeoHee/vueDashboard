@@ -2,13 +2,13 @@
     <div class="">
         <!--로고-->
         <div class="row mt-4 justify-content-center">
-            <font-awesome-icon icon="leaf" size="2x" class="mr-2"/>
-            <h3>Ohdep</h3>
+            <font-awesome-icon icon="leaf" size="1x" class="mr-2" color="#409EFF"/>
+            <h5>Ohdep</h5>
         </div>
 
         <!-- 유저 이름 / 로그인 로그아웃-->
         <div class="row mt-5 justify-content-center">
-            <h3>{{this.name}}</h3>
+            <h5 class="username">{{this.name}}</h5>
         </div>
         <div class="row font-weight-light justify-content-center">
             <div class="col text-right  pl-0 pr-1">
@@ -19,21 +19,41 @@
             </div>
         </div>
 
-        <!-- 사이드 네브 항목 -->
-        <div class="row mt-5 ">
-        <ul class="nav flex-column container-fluid">
-            <li class="nav-item mt-3 justify-left-center" v-for="(i,index) in this.columns" :key="index">
-                <a class="nav-link collapsed" href="#sidebarDashboards" data-toggle="collapse" role="button" aria-expanded="false" aria-controls="sidebarDashboards">
-                    <font-awesome-icon icon="home" v-if="index==0" size="2x"/> 
-                    <font-awesome-icon icon="user" v-if="index==1" size="2x"/>
-                    <font-awesome-icon icon="info" v-if="index==2" size="2x"/>
-                    {{i[0]}}
-                </a>
-            </li>
-        </ul>
-        </div>
+        <el-row class="tac mt-5">
+        <el-col>
+            <el-menu
+                :default-active="active"
+                class="el-menu-vertical-demo border-right-0"
+                v-for="(i,index) in this.columns" :key="index">
+                <router-link :to="i[1]"
+                    style="text-decoration:none" 
+                    @click="active(index)"
+                    data-toggle="collapse" role="button" aria-expanded="false" aria-controls="sidebarDashboards">
+                    <el-menu-item :index="index" class="">
+                        <i class="el-icon-s-platform" v-if="index==0"></i>
+                        <i class="el-icon-user-solid" v-if="index==1"></i>
+                        <i class="el-icon-info" v-if="index==2"></i>
+                        <span>{{i[0]}}</span>
+                    </el-menu-item>
+                </router-link>
+            </el-menu>
+        </el-col>
+        </el-row>
+
+    
+
+
     </div>
 </template>
+<style>
+div a{
+    font-size: 70%
+}
+a span{
+    font-size: 150%
+}
+</style>
+
 <script>
 export default {
     props:{
@@ -46,6 +66,15 @@ export default {
             type: String,
             default: () => 'User Name',
             description: "User Name"
+        },
+        active:{
+            type: Number,
+            default: () => 0,
+        }
+    },
+    methods:{
+        active(index){
+            console.log(index)
         }
     }
 }
