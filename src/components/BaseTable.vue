@@ -1,4 +1,5 @@
 <template>
+<div>
   <table class="table tablesorter mb-0" :class="tableClass">
     <thead :class="theadClasses">
     <tr>
@@ -18,6 +19,7 @@
     </tr>
     </tbody>
   </table>
+  </div>
 </template>
 <script>
   export default {
@@ -49,6 +51,11 @@
         description: "<tbody> css 클래스 지정"
       }
     },
+    data() {
+      return {
+        pageNum:2
+      }
+    },
     computed: {
       tableClass() {
         return this.type && `table-${this.type}`;
@@ -64,5 +71,3 @@
     }
   };
 </script>
-<style>
-</style>

@@ -5,6 +5,21 @@ export const basicOptions = {
       display: false
     },
     responsive: true,
+    annotation: {
+      annotations: [{
+        type: 'line',
+        mode: 'horizontal',
+        scaleID: 'y-axis-0',
+        value: 5,
+        borderColor: 'rgb(75, 192, 192)',
+        borderWidth: 4,
+        label: {
+          enabled: false,
+          content: 'Test label'
+        }
+      }]
+    },
+    // !!!!!!!옵션 추가
   };
   
   export let purpleChartOptions = {

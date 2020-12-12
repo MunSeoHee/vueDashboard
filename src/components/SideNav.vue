@@ -1,49 +1,58 @@
 <template>
     <div class="">
-        <!--로고-->
-        <div class="row mt-4 justify-content-center">
-            <font-awesome-icon icon="leaf" size="1x" class="mr-2" color="#409EFF"/>
-            <h5>Ohdep</h5>
+        <div style="background-color:rgb(67,98,127)" class="pb-5">
+            <div class="justify-content-left text-light">
+                <h5>OHDEP</h5>
+            </div>
+
+            <div class="container-fluid mt-5 d-flex justify-content-center text-light text-center">
+                <div class="row">
+                    <h5 class="username col">{{this.name}}</h5>
+                    <div class="w-100"></div>
+                    <p class="username col" style="font-size:50%">1996.02.12</p>
+                </div>     
+            </div>
+
+            <div class="container mt-1 justify-content-center text-light mr-5 ml-3" style="font-size:80%; width:80%">
+                <div class="row">
+                    <div class="col">AGE</div>
+                    <div class="col text-right">32</div>
+                </div>
+                <div class="row">
+                    <div class="col">HEIGHT</div>
+                    <div class="col text-right">185</div>
+                </div>
+                <div class="row">
+                    <div class="col-lg-8">BLOOD TYPE</div>
+                    <div class="col-lg-4 text-right">A</div>
+                </div>
+            </div>
+        
         </div>
 
-        <!-- 유저 이름 / 로그인 로그아웃-->
-        <div class="row mt-5 justify-content-center">
-            <h5 class="username">{{this.name}}</h5>
-        </div>
-        <div class="row font-weight-light justify-content-center">
-            <div class="col text-right  pl-0 pr-1">
-                <a href="#">Login</a>
+        <div class="container" >
+            <div class="row">
+                <div v-for="(i,index) in this.columns"
+                    :key="index"
+                    :default-active="0"
+                     class="row d-flex justify-content-center mt-4">
+                    <a v-bind:href="i[1]" class="text-secondary text-center" style="font-size:100%">
+                        <i class="el-icon-s-platform" v-if="index==0" style="font-size:200%"></i>
+                        <i class="el-icon-user-solid" v-if="index==1" style="font-size:200%"></i>
+                        <i class="el-icon-info" v-if="index==2" style="font-size:200%"></i>
+                        <i class="el-icon-s-marketing" v-if="index==3" style="font-size:200%"></i>
+                        <p>{{i[0]}}</p>
+                    </a>
+                </div>
+                </div>
+                
             </div>
-            <div class="col text-left  pl-1 pr-0">
-                <a href="#">Logout</a>
-            </div>
         </div>
-
-        <el-row class="tac mt-5">
-        <el-col>
-            <el-menu
-                :default-active="active"
-                class="el-menu-vertical-demo border-right-0"
-                v-for="(i,index) in this.columns" :key="index">
-                <router-link :to="i[1]"
-                    style="text-decoration:none" 
-                    @click="active(index)"
-                    data-toggle="collapse" role="button" aria-expanded="false" aria-controls="sidebarDashboards">
-                    <el-menu-item :index="index" class="">
-                        <i class="el-icon-s-platform" v-if="index==0"></i>
-                        <i class="el-icon-user-solid" v-if="index==1"></i>
-                        <i class="el-icon-info" v-if="index==2"></i>
-                        <span>{{i[0]}}</span>
-                    </el-menu-item>
-                </router-link>
-            </el-menu>
-        </el-col>
-        </el-row>
 
     
 
 
-    </div>
+   
 </template>
 <style>
 div a{
@@ -64,7 +73,7 @@ export default {
       },
         name : {
             type: String,
-            default: () => 'User Name',
+            default: () => '홍길동',
             description: "User Name"
         },
         active:{
@@ -72,10 +81,6 @@ export default {
             default: () => 0,
         }
     },
-    methods:{
-        active(index){
-            console.log(index)
-        }
-    }
+
 }
 </script>

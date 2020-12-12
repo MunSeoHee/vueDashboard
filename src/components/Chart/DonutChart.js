@@ -12,6 +12,17 @@ export default {
       default: () => [40, 20, 80]
     }
   },
+  data: () => ({
+    options: {
+      responsive: false,
+      legend:{
+        display: true,
+        position: 'bottom',
+        fullWidth: true,
+        
+      },
+    }
+  }),
   mounted () {
     this.renderChart({
       labels: this.labels,
@@ -25,7 +36,14 @@ export default {
           ],
           data: this.data
         }
-      ]
-    }, {responsive: true, maintainAspectRatio: false})
+      ],
+    }, this.options, {responsive: true, maintainAspectRatio: false})
   }
 }
+
+
+
+
+
+
+

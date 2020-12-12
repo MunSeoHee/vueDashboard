@@ -8,6 +8,7 @@ import NotFound from './views/NotFound.vue'
 import Dashboard from './views/Dashboard.vue'
 import PersonalInfo from './views/PersonalInfo.vue'
 import HealthInfo from './views/HealthInfo.vue'
+import Prediction from './views/Prediction.vue'
 
 
 Vue.use(Router)
@@ -41,7 +42,12 @@ export default new Router({
           path: "/healthinfo",
           name: "healthinfo",
           component: HealthInfo
-        }
+        },
+        // {
+        //   path: "/prediction",
+        //   name: "prediction",
+        //   component: Prediction
+        // }
       ]
     },
     {
