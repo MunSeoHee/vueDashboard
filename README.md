@@ -50,9 +50,3 @@ npm run lint
 ### Customize configuration
 See [Configuration Reference](https://cli.vuejs.org/config/).
 
-
-
-<<<<<<< HEAD
-https://fontawesome.com/how-to-use/on-the-web/using-with/vuejs
-=======
->>>>>>> 640cde8d73c99a46f6b5807890cfa95e005a85e4
